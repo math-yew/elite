@@ -2,13 +2,53 @@ import React, { Component } from 'react';
 import { editProducts } from './../services/productService';
 
 class Edit extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      products: [],
-      data:[]
+      name: '',
+      description: '',
+      image: '',
+      price: '',
+      rating: '',
+      shipping: '',
+      category: ''
     }
+
+    this.inputChange = this.inputChange.bind(this);
+  }
+
+  inputChange(type, event) {
+    this.setState({
+      ...this.state,
+      [type]: event.target.value
+    })
+  }
+
+  adoptProps() {
+    this.setState({
+      ...this.state,
+      name: this.props.product.name,
+      description: this.props.product.description,
+      image: this.props.product.image,
+      price: this.props.product.price,
+      rating: this.props.product.rating,
+      shipping: this.props.product.shipping,
+      category: this.props.product.category
+    })
+  }
+
+  clearState() {
+    this.setState({
+      ...this.state,
+      name: '',
+      description: '',
+      image: '',
+      price: '',
+      rating: '',
+      shipping: '',
+      category: ''
+    })
   }
 
   editProduct() {
@@ -30,16 +70,33 @@ class Edit extends Component {
   }
 
   render() {
-    let theData = this.state.products.data;
-    console.log('data: ', this.state);
     return (
-      <div className="main-products">
+      <div className="main-product">
         <h1>Edit!</h1>
+        <p>Name:{this.state.name}</p>
+
+          <input onChange={this.inputChange.bind(this,"name")} type="text" value={this.state.name} placeholder="Name" />
+        <input onChange={this.inputChange.bind(this,"description")} type="text" value={this.state.description} placeholder="Description" />
+        <input onChange={this.inputChange.bind(this,"image")} type="text" value={this.state.image} placeholder="Image" />
+        <input onChange={this.inputChange.bind(this,"price")} type="text" value={this.state.price} placeholder="Price" />
+        <input onChange={this.inputChange.bind(this,"rating")} type="text" value={this.state.rating} placeholder="Rating" />
+        <input onChange={this.inputChange.bind(this,"shipping")} type="text" value={this.state.shipping} placeholder="Shipping" />
+        <input onChange={this.inputChange.bind(this,"category")} type="text" value={this.state.category} placeholder="Category" />
         <button onClick={() =>
                             this.editProduct()
                           }>Edit</button>
+        <button onClick={() =>
+                            this.adoptProps()
+                          }>Adopt</button>
+        <button onClick={() =>
+                            this.clearState()
+                          }>Clear</button>
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.adoptProps()
   }
 
 
