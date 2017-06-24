@@ -20,7 +20,7 @@ class Edit extends Component {
     }
 
     this.inputChange = this.inputChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.preFillData = this.preFillData.bind(this);
   }
 
   inputChange(type, event) {
@@ -30,21 +30,7 @@ class Edit extends Component {
     })
   }
 
-
-    clearState() {
-      this.setState({
-        ...this.state,
-        name: '',
-        description: '',
-        image: '',
-        price: '',
-        rating: '',
-        shipping: '',
-        category: ''
-      })
-    }
-
-  handleChange(event) {
+  preFillData(event) {
     let newState= (event.target.value === 'current') ? this.props.product : defaults.products[event.target.value*1];
     this.setState({
       ...this.state,
@@ -55,19 +41,6 @@ class Edit extends Component {
       rating: newState.rating,
       shipping: newState.shipping,
       category: newState.category
-    })
-  }
-
-  adoptProps() {
-    this.setState({
-      ...this.state,
-      name: this.props.product.name,
-      description: this.props.product.description,
-      image: this.props.product.image,
-      price: this.props.product.price,
-      rating: this.props.product.rating,
-      shipping: this.props.product.shipping,
-      category: this.props.product.category
     })
   }
 
@@ -86,6 +59,8 @@ class Edit extends Component {
     }
     // let info = defaults.products[1];
     editProducts(info)
+    .then(this.props.updateState(this.state))
+
   }
 
   render() {
@@ -94,8 +69,8 @@ class Edit extends Component {
         <h1>Edit!</h1>
         <p>Name:{this.state.name}</p>
 
-        <select value={this.state.value} onChange={this.handleChange}>
-          <option selected value="0"></option>
+        <select value={this.state.value} onChange={this.preFillData}>
+          <option defaultValue value="0"></option>
           <option value="current">current</option>
           <option value="1">Default Product 1</option>
           <option value="2">Default Product 2</option>
@@ -119,10 +94,6 @@ class Edit extends Component {
                           }>Clear</button>
       </div>
     )
-  }
-
-  componentDidMount() {
-    this.adoptProps()
   }
 
 

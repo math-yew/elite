@@ -9,16 +9,23 @@ class App extends Component {
     super();
 
     this.state = {
-      product: [],
-      data:[]
+      product: []
     }
+
+    this.updateState = this.updateState.bind(this);
+  }
+
+  updateState(newState) {
+    this.setState({
+     product: newState
+   })
   }
 
   render() {
     return (
       <div className="App">
         <Products product={this.state.product} />
-        <Edit product={this.state.product} />
+        <Edit product={this.state.product} updateState = {this.updateState} />
       </div>
     );
   }
