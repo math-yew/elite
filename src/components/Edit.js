@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import './../styles/edit.css';
 import { editProducts } from './../services/productService';
+let config = require('./../services/config.js');
+let defaults = require('./../services/defaultData');
+
 
 class Edit extends Component {
   constructor(props) {
@@ -16,12 +20,41 @@ class Edit extends Component {
     }
 
     this.inputChange = this.inputChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   inputChange(type, event) {
     this.setState({
       ...this.state,
       [type]: event.target.value
+    })
+  }
+
+
+    clearState() {
+      this.setState({
+        ...this.state,
+        name: '',
+        description: '',
+        image: '',
+        price: '',
+        rating: '',
+        shipping: '',
+        category: ''
+      })
+    }
+
+  handleChange(event) {
+    let newState= (event.target.value === 'current') ? this.props.product : defaults.products[event.target.value*1];
+    this.setState({
+      ...this.state,
+      name: newState.name,
+      description: newState.description,
+      image: newState.image,
+      price: newState.price,
+      rating: newState.rating,
+      shipping: newState.shipping,
+      category: newState.category
     })
   }
 
@@ -38,44 +71,37 @@ class Edit extends Component {
     })
   }
 
-  clearState() {
-    this.setState({
-      ...this.state,
-      name: '',
-      description: '',
-      image: '',
-      price: '',
-      rating: '',
-      shipping: '',
-      category: ''
-    })
-  }
-
   editProduct() {
-    let myData = {
-      image:'https://i5.walmartimages.com/asr/2b3c3baa-da59-4e6d-baa4-b3ebb52c91a9_1.31feca83963b536e29674b7c480c1d06.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF',
-      rating:4,
-      shipping:true,
-      price:40,
-      category:'Toy'
-    }
-
     let info = {
-    	api_key:'math.u@hotmail.com',
-    	name:'Razor Gogo Pog',
-    	description:'This is the classic pogo stick modernized by Razor.  Wear a helmut when using this product',
-    	data: myData
-}
+      api_key:config.key,
+      name: this.state.name,
+      description: this.state.description,
+      data: {
+        image: this.state.image,
+        price: this.state.price,
+        rating: this.state.rating,
+        shipping: this.state.shipping,
+        category: this.state.category
+      }
+    }
+    // let info = defaults.products[1];
     editProducts(info)
   }
 
   render() {
     return (
-      <div className="main-product">
+      <div className="main-edit">
         <h1>Edit!</h1>
         <p>Name:{this.state.name}</p>
 
-          <input onChange={this.inputChange.bind(this,"name")} type="text" value={this.state.name} placeholder="Name" />
+        <select value={this.state.value} onChange={this.handleChange}>
+          <option selected value="0"></option>
+          <option value="current">current</option>
+          <option value="1">Default Product 1</option>
+          <option value="2">Default Product 2</option>
+        </select>
+
+        <input onChange={this.inputChange.bind(this,"name")} type="text" value={this.state.name} placeholder="Name" />
         <input onChange={this.inputChange.bind(this,"description")} type="text" value={this.state.description} placeholder="Description" />
         <input onChange={this.inputChange.bind(this,"image")} type="text" value={this.state.image} placeholder="Image" />
         <input onChange={this.inputChange.bind(this,"price")} type="text" value={this.state.price} placeholder="Price" />
