@@ -1,0 +1,29 @@
+body {
+  margin: 0px;
+}
+
+.App {
+  height: 100vh;
+  width: 100%;
+}
+
+button {
+  margin:5px;
+  padding: 5px;
+  border-radius: 0px;
+  box-shadow: inset 5px;
+  border-color: #fff;
+  color: #fff;
+  background-color: transparent;
+  text-align: center;
+  cursor: pointer;
+}
+
+button:hover{
+  box-shadow: outset;
+  color: #aaa;
+}
+
+input {
+  padding: 5px;
+}

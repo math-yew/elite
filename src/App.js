@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.css';
 import { getProducts } from './services/productService';
 import Products from './components/Products';
 import Edit from './components/Edit';
@@ -9,7 +9,7 @@ class App extends Component {
     super();
 
     this.state = {
-      product: []
+      product: {image:[]}
     }
 
     this.updateState = this.updateState.bind(this);

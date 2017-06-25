@@ -1,0 +1,17 @@
+.thumb-main {
+  height: 70px;
+  width: 70px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: solid #000 thin;
+  background-image: url();
+  margin: 5px;
+  float: left;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.thumb-main:hover {
+  opacity: 1;
+}
