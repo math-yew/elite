@@ -28,9 +28,8 @@ class Products extends Component {
     console.log('this.props.product: ', this.props.product.image);
     let rate = this.props.product.rating;
     let stars = rate === 5 ? stars5 : rate === 4 ? stars4 : rate === 3 ? stars3 : rate === 2 ? stars2 : stars1
-    let ship = {display:this.props.product.shipping ? 'block' : 'none'};
     let length = this.props.product.image.length;
-    let thumbWidth = 82*length;
+    let thumbWidth = length < 4 ? 82*length : 246;
     let imageNumber = this.state.imageNumber;
     const images = this.props.product.image.map((e,i) => <div onClick={this.changeImage.bind(this, i)}><Thumb image={e} i={i} key={i} /></div>)
 
@@ -57,7 +56,6 @@ class Products extends Component {
             <img src={stars} className="stars" />
             <br/>
             <h3>${this.props.product.price}</h3>
-            <p style={ship} className="shipping">2 Day Shipping!</p>
             <p>{this.props.product.description}</p>
             <p>Category: {this.props.product.category}</p>
           </div>
