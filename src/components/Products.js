@@ -25,7 +25,6 @@ class Products extends Component {
   }
 
   render() {
-    console.log('this.props.product: ', this.props.product.image);
     let rate = this.props.product.rating;
     let stars = rate === 5 ? stars5 : rate === 4 ? stars4 : rate === 3 ? stars3 : rate === 2 ? stars2 : stars1
     let length = this.props.product.image.length;
@@ -53,7 +52,7 @@ class Products extends Component {
         <div className="right">
           <div className="center">
             <h2>{this.props.product.name}</h2>
-            <img src={stars} className="stars" />
+            <span>User Rating: </span><img src={stars} className="stars" />
             <br/>
             <h3>${this.props.product.price}</h3>
             <p>{this.props.product.description}</p>

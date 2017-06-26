@@ -26,7 +26,6 @@ class Edit extends Component {
   }
 
   inputChange(type, event) {
-    console.log('event.target.value: ', event.target.value);
     let changedValue = event.target.value;
     if(changedValue==="true") changedValue = true;
     if(changedValue==="false") changedValue = false;

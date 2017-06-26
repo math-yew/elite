@@ -8,7 +8,6 @@ class Thumb extends Component {
   }
 
   render() {
-    console.log('thumb this.props: ', this);
     let url = this.props.image;
     let background =  {backgroundImage:"url("+url+")"};
     return (

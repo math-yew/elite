@@ -3,6 +3,10 @@
   height: 100%;
 }
 
+h2{
+  margin: 0px;
+}
+
 .left {
   width: 50%;
   height: 100%;
@@ -28,6 +32,7 @@
 .stars {
   width: 80px;
   height: auto;
+  margin: 0;
 }
 
 .shipping {
