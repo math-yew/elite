@@ -7,23 +7,11 @@ body {
   width: 100%;
 }
 
-button {
-  margin:5px;
-  padding: 5px;
-  border-radius: 0px;
-  box-shadow: inset 5px;
-  border-color: #fff;
-  color: #fff;
-  background-color: transparent;
-  text-align: center;
-  cursor: pointer;
-}
-
-button:hover{
-  box-shadow: outset;
-  color: #aaa;
-}
-
-input {
-  padding: 5px;
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 80%;
+  height: 80%;
 }

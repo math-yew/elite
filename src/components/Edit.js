@@ -12,13 +12,14 @@ class Edit extends Component {
     this.state = {
       name: '',
       description: '',
-      image: '',
+      image: [],
       price: '',
       rating: '',
       shipping: false,
       category: '',
       view: false,
-      show: true
+      show: true,
+      pics: ""
     }
 
     this.inputChange = this.inputChange.bind(this);
@@ -34,7 +35,17 @@ class Edit extends Component {
       ...this.state,
       [type]: changedValue
     })
-    console.log('this.state.shipping: ', this.state.shipping);
+  }
+
+  addImage(image) {
+    let images = this.state.image;
+    images.push(image.toString());
+      if(images){
+      this.setState({
+        ...this.state,
+        pics: images
+      })
+    }
   }
 
   preFillData(event) {
@@ -85,36 +96,49 @@ class Edit extends Component {
     let test = 0;
     let view = 'main-edit'+(this.state.view===true?' view':'');
     let hide = {display:this.state.show?'block':'none'};
+    const pictures = this.state.image.map((e,i) => <span key={i}>{e.slice(0,15)}... </span>);
     return (
       <div className={view}>
       <button style = {hide} className="overlap" onClick={() => this.viewEdit()}>Edit</button>
         <div className="center">
-          <h1>Edit!</h1>
           <h1 style = {hide} className="x" onClick={() => this.viewEdit()}>X</h1>
-          <p>Name:{this.state.name}</p>
+          <div className="edit">
+            <div className="edit-top">
+              <select value={this.state.value} onChange={this.preFillData}>
+                <option value="" disabled selected hidden>Autofill with....</option>
+                <option value="0"></option>
+                <option value="current">Current Values</option>
+                <option value="1">Default Product 1</option>
+                <option value="2">Default Product 2</option>
+              </select>
+            </div>
+            <div className="edit-center">
+              <div className="edit-left">
+                <input className="w-92" onChange={this.inputChange.bind(this,"name")} type="text" value={this.state.name} placeholder="Name" />
+                <textarea className="w-92" onChange={this.inputChange.bind(this,"description")} type="text" value={this.state.description} placeholder="Description" />
+              </div>
+              <div className="edit-left">
+                <p className="white">Images: <span className="font-11">{pictures}</span></p>
+                <input className="w-46" onChange={this.inputChange.bind(this,"pics")} type="text" value={this.state.pics} placeholder="Image" />
+                <button className="" onClick={() => this.addImage(this.state.pics)}>Add Image</button>
+                <input className="w-20" onChange={this.inputChange.bind(this,"price")} type="text" value={this.state.price} placeholder="Price" />
+                <input className="w-20" onChange={this.inputChange.bind(this,"rating")} type="text" value={this.state.rating} placeholder="Rating" />
+                <label>
+                  <span className="white">Yes</span>
+                  <input onChange={this.inputChange.bind(this,"shipping")} type="checkbox" name="myRadioInput" defaultChecked={this.state.shipping == true} value={true} />
+                  <span className="white">No</span>
+                  <input onChange={this.inputChange.bind(this,"shipping")} type="checkbox" name="myRadioInput" defaultChecked={this.state.shipping == false} value={false} />
+                </label>
+                <input className="w-46" onChange={this.inputChange.bind(this,"category")} type="text" value={this.state.category} placeholder="Category" />
+              </div>
 
-          <select value={this.state.value} onChange={this.preFillData}>
-            <option defaultValue value="0"></option>
-            <option value="current">current</option>
-            <option value="1">Default Product 1</option>
-            <option value="2">Default Product 2</option>
-          </select>
+            </div>
 
-          <input onChange={this.inputChange.bind(this,"name")} type="text" value={this.state.name} placeholder="Name" />
-          <input onChange={this.inputChange.bind(this,"description")} type="text" value={this.state.description} placeholder="Description" />
-          <input onChange={this.inputChange.bind(this,"image")} type="text" value={this.state.image} placeholder="Image" />
-          <input onChange={this.inputChange.bind(this,"price")} type="text" value={this.state.price} placeholder="Price" />
-          <input onChange={this.inputChange.bind(this,"rating")} type="text" value={this.state.rating} placeholder="Rating" />
-          <label>
-            <span className="white">Yes</span>
-            <input onChange={this.inputChange.bind(this,"shipping")} type="checkbox" name="myRadioInput" defaultChecked={this.state.shipping == true} value={true} />
-            <span className="white">No</span>
-            <input onChange={this.inputChange.bind(this,"shipping")} type="checkbox" name="myRadioInput" defaultChecked={this.state.shipping == false} value={false} />
-          </label>
-          <input onChange={this.inputChange.bind(this,"category")} type="text" value={this.state.category} placeholder="Category" />
-          <button onClick={() => this.editProduct()}>Update</button>
-          <br/>
-          <button style = {hide} onClick={() => this.viewEdit()}>Done</button>
+
+            <div className="edit-bottom">
+              <button className="submit-button" onClick={() => this.editProduct()}>Update</button>
+            </div>
+          </div>
         </div>
 
       </div>
